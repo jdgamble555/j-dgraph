@@ -13,8 +13,16 @@ export class dgraph extends Dgraph {
     private _devMode: boolean;
     private _client: any;
 
-    constructor(_opts: { _type?: string, isDevMode?: boolean, url: string, headers?: () => any, fetch?: any }) {
-        super(_opts._type);
+    /**
+     * @param _opts 
+     *   url - api endpoint url
+     *   type? - node name
+     *   isDevMode? - boolean for Developer Mode
+     *   fetch? - fetch function
+     *   headers? - headers function, can be async
+     */
+    constructor(_opts: { type?: string, isDevMode?: boolean, url: string, headers?: () => any, fetch?: any }) {
+        super(_opts.type);
         this._devMode = _opts.isDevMode || false;
         this._client = client({ url: _opts.url, headers: _opts.headers, fetch: _opts.fetch });
     }

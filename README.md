@@ -1,6 +1,8 @@
-# easy-dgraph
+# dgraph.js
 
-A quick way to generate graphql queries in dgraph.
+The UNOFFICIAL easy-to-use package to query dgraph easily, without GraphQL.
+
+It uses GraphQL, URQL, and my easy-dgraph package under-the-hood!
 ________
 
 For Documentation, see: [dev.to: easy-dgraph](https://dev.to/jdgamble555/easy-dgraph-create-dgraph-graphql-on-the-fly-10bm)

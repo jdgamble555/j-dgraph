@@ -1,6 +1,6 @@
 # j-dgraph
 
-The easy-to-use package to query dgraph easily, without GraphQL.  So far it has been tested on Angular, Angular Universal, and Sveltekit.  It should, however, work in almost any javascript framework both server side and client side. 
+The easy-to-use package to query dgraph without GraphQL.  So far it has been tested on Angular, Angular Universal, and Sveltekit.  It should, however, work in almost any javascript framework both server side and client side. 
 
 Let me know if you have problems in the issue section.
 
@@ -14,6 +14,8 @@ npm i j-dgraph
 
 # Example 1
 
+A basic query...
+
 ```typescript
 import { dgraph } from 'j-dgraph';
 
@@ -25,6 +27,8 @@ console.log(r);
 ```
 
 # Example 2
+
+Pretty print errors, use headers, and a custom query...
 
 ```typescript
 import { dgraph } from 'j-dgraph';

@@ -7,6 +7,7 @@ import {
     subscriptionExchange
 } from "@urql/core";
 import type { Exchange, Operation } from '@urql/core';
+import fetch from 'node-fetch';
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import { fromPromise, fromValue, map, mergeMap, pipe } from 'wonka';
 import * as ws from 'ws';
@@ -15,7 +16,7 @@ export function client(_opts: { url: string, headers?: () => any | Promise<any>,
 
     const _url = _opts.url.replace(/^https?:\/\//, '');
     const _headers = _opts.headers;
-    const _fetch = _opts.fetch;
+    const _fetch = _opts.fetch || fetch;
 
     // allow for async headers...
     const fetchOptionsExchange = (fn: any): Exchange => ({ forward }) => ops$ => {

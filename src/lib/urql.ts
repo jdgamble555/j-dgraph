@@ -7,7 +7,7 @@ import {
     subscriptionExchange
 } from "@urql/core";
 import type { Exchange, Operation } from '@urql/core';
-import fetch from 'node-fetch';
+import 'isomorphic-unfetch';
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import { fromPromise, fromValue, map, mergeMap, pipe } from 'wonka';
 import * as ws from 'ws';

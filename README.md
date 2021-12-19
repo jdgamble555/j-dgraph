@@ -8,9 +8,23 @@ It uses GraphQL, Urql, and my [easy-dgraph](https://github.com/jdgamble555/easy-
 
 # Installation
 
-`npm i j-dgraph`
+```typescript
+npm i j-dgraph
+```
 
-# Example Usage
+# Example 1
+
+```typescript
+import { dgraph } from 'j-dgraph';
+
+const _dgraph = new dgraph({ url: 'https://your-endpoint/graphql' });
+
+const r = await _dgraph.type('post').filter('0x1').query({ id: 1, name: 1 }).build();
+
+console.log(r);
+```
+
+# Example 2
 
 ```typescript
 import { dgraph } from 'j-dgraph';
@@ -23,7 +37,7 @@ const dg = new dgraph({
     isDevMode: isDevMode()
 }).pretty();
 
-const r = dg.type('queryFeatureSortedByVotes')
+const r = await dg.type('queryFeatureSortedByVotes')
       .customQuery({
         id: 1,
         name: 1,
@@ -40,6 +54,26 @@ const r = dg.type('queryFeatureSortedByVotes')
 console.log(r);
 ```
 
+# Example 3
+
+Subscriptions work out-of-the-box!
+
+```typescript
+import { dgraph } from 'j-dgraph';
+
+const _dgraph = new dgraph({ url: 'https://your-endpoint/graphql' });
+
+const sub = _dgraph.type('post').filter('0x1').query({ id: 1, name: 1 })
+  .buildSubscription().subscribe((r: any) => console.log(r));
+
+...
+
+onDestroy(() => {
+    sub.unsubscribe();
+});
+
+```
+
 # Constructor Options
 
 ```typescript
@@ -52,6 +86,8 @@ console.log(r);
  *   headers? - headers function, can be async
  */
 ```
+
+**Note:** In development mode, all GraphQL queries and results are printed to the console.  I have simplified all messages in DGraph to be easily readable, including errors.
 
 You can also import the EnumType from easy-dgraph like so:
 

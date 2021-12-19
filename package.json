@@ -1,6 +1,6 @@
 {
   "name": "j-dgraph",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A quick javascript client for Dgraph without GraphQL.",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -62,11 +62,12 @@
     "bufferutil": "^4.0.5",
     "easy-dgraph": "^1.5.5",
     "graphql": "^16.2.0",
+    "node-fetch": "^3.1.0",
     "rxjs": "^7.4.0",
     "subscriptions-transport-ws": "^0.11.0",
     "utf-8-validate": "^5.0.7",
     "wonka": "^4.0.15",
-    "ws": "^8.3.0"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",

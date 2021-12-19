@@ -95,15 +95,15 @@ onDestroy(() => {
 
 You can also import the EnumType from easy-dgraph like so:
 
-`import { dgraph, EnumType } from 'j-dgraph';`
+```typescript
+import { dgraph, EnumType } from 'j-dgraph';
+```
 
 Every single thing you can do in Dgraph's GraphQL, you can do with no configuration with this package.
-
-See easy-dgraph below for how to query.
 
 J
 ________
 
-For Documentation, see: [dev.to: easy-dgraph](https://dev.to/jdgamble555/easy-dgraph-create-dgraph-graphql-on-the-fly-10bm)
+For All Easy-DGraph Documentation, see: [dev.to: easy-dgraph](https://dev.to/jdgamble555/easy-dgraph-create-dgraph-graphql-on-the-fly-10bm)
 
 For Examples, see: [Test File](https://github.com/jdgamble555/easy-dgraph/blob/master/src/lib/easy-dgraph.test.ts)

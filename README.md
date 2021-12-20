@@ -99,6 +99,8 @@ You can also import the EnumType from easy-dgraph like so:
 import { dgraph, EnumType } from 'j-dgraph';
 ```
 
+- Errors are thrown, so use try / catch blocks to catch them.
+
 Every single thing you can do in Dgraph's GraphQL, you can do with no configuration with this package.
 
 J

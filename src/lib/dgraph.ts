@@ -44,7 +44,7 @@ export class dgraph extends Dgraph {
                         return r.data;
                     }
                     if (r.error) {
-                        console.log(r.error.message);
+                        throw r.error.message;
                     }
                     const r1 = r.data ? Object.keys(r.data)[0] : '';
                     if (r.data) {
@@ -73,7 +73,7 @@ export class dgraph extends Dgraph {
         return await this._client.query(gq, undefined, this._urlOpts).toPromise()
             .then((r: any) => {
                 if (r.error) {
-                    console.log(r.error.message);
+                    throw r.error.message;
                 }
                 return r.data ? r.data[Object.keys(r.data)[0]] : null;
             }).then((r: any) => {
@@ -97,7 +97,7 @@ export class dgraph extends Dgraph {
         }).pipe(
             map((r: any) => {
                 if (r.error) {
-                    console.log(r.error.message);
+                    throw r.error.message;
                 }
                 return r.data ? r.data[Object.keys(r.data)[0]] : null;
             }),

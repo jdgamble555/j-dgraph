@@ -100,6 +100,7 @@ import { dgraph, EnumType } from 'j-dgraph';
 ```
 
 - Errors are thrown, so use try / catch blocks to catch them.
+- use .networkOnly() if you want to skip graphql caching
 
 Every single thing you can do in Dgraph's GraphQL, you can do with no configuration with this package.
 

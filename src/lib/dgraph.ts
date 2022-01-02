@@ -101,7 +101,7 @@ export class dgraph extends Dgraph {
                 }
                 return r.data ? r.data[Object.keys(r.data)[0]] : null;
             }),
-            map((r) => {
+            map((r: any) => {
                 if (this._devMode) {
                     console.log(r);
                 }

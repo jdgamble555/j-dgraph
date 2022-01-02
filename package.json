@@ -1,6 +1,6 @@
 {
   "name": "j-dgraph",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A quick javascript client for Dgraph without GraphQL.",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -60,7 +60,7 @@
   "dependencies": {
     "@urql/core": "^2.3.6",
     "bufferutil": "^4.0.5",
-    "easy-dgraph": "^1.5.5",
+    "easy-dgraph": "^1.5.6",
     "graphql": "^16.2.0",
     "isomorphic-unfetch": "^3.1.0",
     "rxjs": "^7.4.0",

@@ -10,7 +10,6 @@ import type { Exchange, Operation } from '@urql/core';
 import fetch from 'isomorphic-unfetch';
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import { fromPromise, fromValue, map, mergeMap, pipe } from 'wonka';
-import * as ws from 'ws';
 
 export function client(_opts: { url: string, headers?: () => any | Promise<any>, fetch?: any }) {
 
@@ -56,7 +55,7 @@ export function client(_opts: { url: string, headers?: () => any | Promise<any>,
                         reconnect: true,
                         lazy: true,
                         connectionParams: async () => await _headers()
-                    }, typeof window === 'undefined' ? ws : null).request(operation);
+                    }).request(operation);
                 },
             }),
             fetchExchange

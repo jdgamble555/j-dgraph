@@ -1,6 +1,5 @@
 import { Dgraph } from 'easy-dgraph';
-import { map, Observable } from 'rxjs';
-import { pipe, toObservable } from "wonka";
+import { map, pipe, toObservable } from "wonka";
 
 import { client } from "./urql";
 export { EnumType } from 'easy-dgraph';
@@ -89,12 +88,8 @@ export class dgraph extends Dgraph {
         if (this._devMode) {
             console.log(gq);
         }
-        return new Observable((observable: any) => {
-            pipe(
-                this._client.subscription(gq),
-                toObservable
-            ).subscribe(observable);
-        }).pipe(
+        return pipe(
+            this._client.subscription(gq),
             map((r: any) => {
                 if (r.error) {
                     throw r.error.message;
@@ -106,7 +101,8 @@ export class dgraph extends Dgraph {
                     console.log(r);
                 }
                 return r;
-            })
+            }),
+            toObservable
         );
     }
 }

@@ -1,5 +1,5 @@
 import { Dgraph } from 'easy-dgraph';
-import { map, pipe, toObservable } from "wonka";
+import { map, pipe, publish } from "wonka";
 
 import { client } from "./urql";
 export { EnumType } from 'easy-dgraph';
@@ -88,7 +88,7 @@ export class dgraph extends Dgraph {
         if (this._devMode) {
             console.log(gq);
         }
-        return pipe(
+        const p = pipe(
             this._client.subscription(gq),
             map((r: any) => {
                 if (r.error) {
@@ -102,7 +102,14 @@ export class dgraph extends Dgraph {
                 }
                 return r;
             }),
-            toObservable
+            publish
         );
+        return {
+            subscribe: (run: any) => {
+                run(p);
+                return p;
+            }
+        }
+
     }
 }

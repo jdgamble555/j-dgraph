@@ -105,11 +105,10 @@ export class dgraph extends Dgraph {
             publish
         );
         return {
-            subscribe: (run: any) => {
+            subscribe: (run: (value: any) => void) => {
                 run(p);
                 return p;
             }
-        }
-
+        };
     }
 }

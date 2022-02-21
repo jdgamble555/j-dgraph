@@ -1,5 +1,5 @@
 import { Dgraph } from 'easy-dgraph';
-import { map, pipe, publish } from "wonka";
+import { map, pipe, subscribe } from "wonka";
 
 import { client } from "./urql";
 export { EnumType } from 'easy-dgraph';
@@ -101,14 +101,13 @@ export class dgraph extends Dgraph {
                     console.log(r);
                 }
                 return r;
-            }),
-            publish
+            })
         );
         return {
-            subscribe: (run: (value: any) => void) => {
-                run(p);
-                return p;
-            }
+            subscribe: (val: any) => pipe(
+                p,
+                subscribe(val)
+            )
         };
     }
 }

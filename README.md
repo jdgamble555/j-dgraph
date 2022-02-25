@@ -14,16 +14,23 @@ npm i j-dgraph
 
 # Example 1
 
-A basic query...
+A basic query with headers...
 
 ```typescript
 import { dgraph } from 'j-dgraph';
 
-const _dgraph = new dgraph({ url: 'https://your-endpoint/graphql' });
+const _dgraph = new dgraph({ 
+  url: 'https://your-endpoint/graphql', 
+  headers: { "X-Auth-Token": localStorage.getItem('X-Auth-Token') }
+});
 
-const r = await _dgraph.type('post').filter('0x1').query({ id: 1, name: 1 }).build();
+const { data, error } = await _dgraph.type('post').filter('0x1').query({ id: 1, name: 1 }).build();
 
-console.log(r);
+if (error) {
+  console.error(error);
+}
+
+console.log(data);
 ```
 
 # Example 2
@@ -36,12 +43,12 @@ import { dgraph } from 'j-dgraph';
 ...
 
 const dg = new dgraph({
-    url: 'https://your-endpoint/graphql',
+    url: 'https://your-dgraph-endpoint/graphql',
     headers: async () => ({ "X-Auth-Token": await this.getToken() }),
     isDevMode: isDevMode()
 }).pretty();
 
-const r = await dg.type('queryFeatureSortedByVotes')
+const { data, error } = await dg.type('queryFeatureSortedByVotes')
       .customQuery({
         id: 1,
         name: 1,
@@ -55,12 +62,16 @@ const r = await dg.type('queryFeatureSortedByVotes')
       })
       .build()
 
-console.log(r);
+if (error) {
+  console.error(error);
+}
+
+console.log(data);
 ```
 
 # Example 3
 
-Subscriptions work out-of-the-box!
+Subscriptions work out-of-the-box with error handling!
 
 ```typescript
 import { dgraph } from 'j-dgraph';
@@ -68,13 +79,22 @@ import { dgraph } from 'j-dgraph';
 const _dgraph = new dgraph({ url: 'https://your-endpoint/graphql' });
 
 const sub = _dgraph.type('post').filter('0x1').query({ id: 1, name: 1 })
-  .buildSubscription().subscribe((r: any) => console.log(r));
+  .buildSubscription()
+  .subscribe(
+    (snapshot: any) => {
 
+    console.log(snapshot);
+
+  }, (error: string) => {
+
+    console.error(snapshot);
+
+  });
 ...
 
-onDestroy(() => {
+onDestroy(() => 
     sub.unsubscribe();
-});
+);
 
 ```
 
@@ -82,7 +102,7 @@ onDestroy(() => {
 
 ```typescript
 /**
- * @param _opts 
+ * @param 
  *   url - api endpoint url
  *   type? - node name
  *   isDevMode? - boolean for Developer Mode

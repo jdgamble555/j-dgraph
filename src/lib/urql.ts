@@ -7,15 +7,13 @@ import {
     subscriptionExchange
 } from "@urql/core";
 import type { Exchange, Operation } from '@urql/core';
-import fetch from 'isomorphic-unfetch';
+import ifetch from 'isomorphic-unfetch';
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import { fromPromise, fromValue, map, mergeMap, pipe } from 'wonka';
 
-export function client(_opts: { url: string, headers?: () => any | Promise<any>, fetch?: any }) {
+export function client({ url, headers = {}, fetch = ifetch }: { url: string, headers?: (() => any | Promise<any>) | Record<string, string>, fetch?: any }) {
 
-    const _url = _opts.url.replace(/^https?:\/\//, '');
-    const _headers = _opts.headers;
-    const _fetch = _opts.fetch || fetch;
+    url = url.replace(/^https?:\/\//, '');
 
     // allow for async headers...
     const fetchOptionsExchange = (fn: any): Exchange => ({ forward }) => ops$ => {
@@ -38,23 +36,23 @@ export function client(_opts: { url: string, headers?: () => any | Promise<any>,
     };
 
     return createClient({
-        fetch: _fetch,
-        url: `https://${_url}`,
+        fetch,
+        url: `https://${url}`,
         exchanges: [
             dedupExchange,
             cacheExchange,
             fetchOptionsExchange(async (fetchOptions: any) => {
                 return {
                     ...fetchOptions,
-                    headers: await _headers()
+                    headers: typeof headers === 'function' ? await headers() : headers
                 };
             }),
             subscriptionExchange({
                 forwardSubscription(operation) {
-                    return new SubscriptionClient(`wss://${_url}`, {
+                    return new SubscriptionClient(`wss://${url}`, {
                         reconnect: true,
                         lazy: true,
-                        connectionParams: async () => await _headers()
+                        connectionParams: typeof headers === 'function' ? async () => await headers() : headers
                     }).request(operation);
                 },
             }),

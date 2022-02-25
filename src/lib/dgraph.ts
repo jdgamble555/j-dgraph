@@ -37,7 +37,7 @@ export class dgraph extends Dgraph {
         return this;
     }
 
-    async build(): Promise<{ error?: string, data?: any }> {
+    async build(): Promise<{ error?: any, data?: any }> {
         const gq = super.build();
         if (this._devMode) {
             console.log(gq);
@@ -116,7 +116,7 @@ export class dgraph extends Dgraph {
             })
         );
         return {
-            subscribe: (next: any, onError?: (error: string) => void) => {
+            subscribe: (next: any, onError?: (error: any) => void) => {
                 pipe(
                     p,
                     subscribe(next)

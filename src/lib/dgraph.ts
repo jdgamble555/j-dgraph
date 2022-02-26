@@ -45,7 +45,7 @@ export class dgraph extends Dgraph {
 
     getData() {
         if (typeof window !== 'undefined') {
-            return JSON.parse(window.localStorage.getItem('j-dgraph'));
+            return JSON.parse(window.localStorage.getItem('j-dgraph')) as this;
         }
         return this;
     }

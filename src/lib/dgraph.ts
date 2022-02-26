@@ -40,6 +40,9 @@ export class dgraph extends Dgraph {
     private saveData() {
         if (!isServerSide) {
             window.localStorage.setItem('j-dgraph', JSON.stringify(ssr.extractData()));
+            if (this._devMode) {
+                console.log(ssr.extractData());
+            }
         }
     }
 

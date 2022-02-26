@@ -1,6 +1,6 @@
 {
   "name": "j-dgraph",
-  "version": "1.1.02",
+  "version": "1.1.21",
   "description": "A quick javascript client for Dgraph without GraphQL.",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",

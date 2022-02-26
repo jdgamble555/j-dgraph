@@ -37,19 +37,6 @@ export class dgraph extends Dgraph {
         return this;
     }
 
-    private saveData() {
-        if (typeof window !== 'undefined') {
-            window.localStorage.setItem('j-dgraph', JSON.stringify(this));
-        }
-    }
-
-    getData() {
-        if (typeof window !== 'undefined') {
-            return JSON.parse(window.localStorage.getItem('j-dgraph')) as this;
-        }
-        return this;
-    }
-
     async build(): Promise<{ error?: any, data?: any }> {
         const gq = super.build();
         if (this._devMode) {
@@ -87,10 +74,6 @@ export class dgraph extends Dgraph {
                     }
                     r = this._error ? { error: this._error } : { data: r };
                     this.reset();
-
-                    // save data for cache on client
-                    this.saveData();
-
                     return r;
                 });
         }
@@ -106,10 +89,6 @@ export class dgraph extends Dgraph {
                 }
                 r = this._error ? { error: this._error } : { data: r };
                 this.reset();
-
-                // save data for cache on client
-                this.saveData();
-
                 return r;
             });
     }

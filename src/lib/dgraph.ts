@@ -1,7 +1,7 @@
 import { Dgraph } from 'easy-dgraph';
 import { map, pipe, subscribe } from "wonka";
 
-import { client } from "./urql";
+import { client, isServerSide, ssr } from "./urql";
 export { EnumType } from 'easy-dgraph';
 
 
@@ -35,6 +35,12 @@ export class dgraph extends Dgraph {
     networkOnly(): this {
         this._urlOpts = { requestPolicy: 'network-only' };
         return this;
+    }
+
+    private saveData() {
+        if (!isServerSide) {
+            window.localStorage.setItem('j-dgraph', JSON.stringify(ssr.extractData()));
+        }
     }
 
     async build(): Promise<{ error?: any, data?: any }> {
@@ -74,6 +80,10 @@ export class dgraph extends Dgraph {
                     }
                     r = this._error ? { error: this._error } : { data: r };
                     this.reset();
+
+                    // save data for cache on client
+                    this.saveData();
+
                     return r;
                 });
         }
@@ -89,6 +99,10 @@ export class dgraph extends Dgraph {
                 }
                 r = this._error ? { error: this._error } : { data: r };
                 this.reset();
+
+                // save data for cache on client
+                this.saveData();
+
                 return r;
             });
     }

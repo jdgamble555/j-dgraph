@@ -110,7 +110,6 @@ export class dgraph extends Dgraph {
                 if (this._devMode) {
                     console.log(r);
                 }
-                r = this._error ? { error: this._error } : { data: r };
                 this.reset();
                 return r;
             })

@@ -21,15 +21,25 @@ export class dgraph extends Dgraph {
      *   fetch? - fetch function
      *   headers? - headers function, can be async
      */
-    constructor({ type, isDevMode = false, url, headers }: { type?: string, isDevMode?: boolean, url: string, headers?: () => any, fetch?: any }) {
+    constructor({
+        type,
+        isDevMode = false,
+        url,
+        headers,
+        fetch,
+        prefix = ''
+    }: {
+        type?: string,
+        isDevMode?: boolean,
+        url: string,
+        headers?: () => any,
+        fetch?: any,
+        prefix: string
+    }) {
         super(type);
         this._devMode = isDevMode;
         this._client = client({ url, headers, fetch });
-    }
-
-    save(): this {
-        // get current state to save state
-        return this;
+        this.prefix(prefix);
     }
 
     reset(): this {

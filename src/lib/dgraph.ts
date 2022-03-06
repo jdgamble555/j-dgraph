@@ -27,6 +27,11 @@ export class dgraph extends Dgraph {
         this._client = client({ url, headers, fetch });
     }
 
+    save(): this {
+        // get current state to save state
+        return this;
+    }
+
     reset(): this {
         this._error = undefined;
         return this;

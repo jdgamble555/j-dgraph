@@ -109,6 +109,7 @@ onDestroy(() =>
  *   isDevMode? - boolean for Developer Mode
  *   fetch? - fetch function
  *   headers? - headers function, can be async
+ *   prefix? - the prefix name for the type
  */
 ```
 

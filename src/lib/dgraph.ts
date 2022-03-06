@@ -20,6 +20,7 @@ export class dgraph extends Dgraph {
      *   isDevMode? - boolean for Developer Mode
      *   fetch? - fetch function
      *   headers? - headers function, can be async
+     *   prefix? - the prefix name for the type
      */
     constructor({
         type,
@@ -34,7 +35,7 @@ export class dgraph extends Dgraph {
         url: string,
         headers?: () => any,
         fetch?: any,
-        prefix: string
+        prefix?: string
     }) {
         super(type);
         this._devMode = isDevMode;

@@ -38,15 +38,14 @@ export class dgraph extends Dgraph {
         fetch?: any,
         prefix?: string
     }) {
-        super();
+        super(type);
         this._devMode = isDevMode;
         this._client = client({ url, headers, fetch });
         this._prefix = prefix;
-        this.type(type, undefined, prefix);
     }
 
-    type(type: string, alias?: string, prefix?: string) {
-        super.type(type, alias, prefix || this._prefix);
+    type(type: string, alias?: string, prefix = this._prefix) {
+        super.type(type, alias, prefix);
         return this;
     }
 

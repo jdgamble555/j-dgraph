@@ -12,6 +12,7 @@ export class dgraph extends Dgraph {
     private _devMode: boolean;
     private _client: any;
     private _error: string;
+    private _prefix: string;
 
     /**
      * @param
@@ -40,7 +41,13 @@ export class dgraph extends Dgraph {
         super();
         this._devMode = isDevMode;
         this._client = client({ url, headers, fetch });
+        this._prefix = prefix;
         this.type(type, undefined, prefix);
+    }
+
+    type(type: string, alias?: string, prefix?: string) {
+        super.type(type, alias, prefix || this._prefix);
+        return this;
     }
 
     reset(): this {

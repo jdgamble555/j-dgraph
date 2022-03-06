@@ -37,10 +37,10 @@ export class dgraph extends Dgraph {
         fetch?: any,
         prefix?: string
     }) {
-        super(type);
+        super();
         this._devMode = isDevMode;
         this._client = client({ url, headers, fetch });
-        this.prefix(prefix);
+        this.type(type, undefined, prefix);
     }
 
     reset(): this {

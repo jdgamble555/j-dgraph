@@ -45,7 +45,8 @@ import { dgraph } from 'j-dgraph';
 const dg = new dgraph({
     url: 'https://your-dgraph-endpoint/graphql',
     headers: async () => ({ "X-Auth-Token": await this.getToken() }),
-    isDevMode: isDevMode()
+    isDevMode: isDevMode(),
+    prefix: 'blog_'
 }).pretty();
 
 const { data, error } = await dg.type('queryFeatureSortedByVotes')

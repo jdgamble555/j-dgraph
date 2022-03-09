@@ -55,11 +55,12 @@ export class dgraph extends Dgraph {
     }
 
     async build(): Promise<{ error?: any, data?: any }> {
+        const op = this._operation;
         const gq = super.build();
         if (this._devMode) {
             console.log(gq);
         }
-        if (this._operation === 'mutation') {
+        if (op === 'mutation') {
             return await this._client.mutation(gq, this._urlOpts).toPromise()
                 .then((r: any) => {
                     if (r.error) {

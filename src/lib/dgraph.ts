@@ -49,11 +49,6 @@ export class dgraph extends Dgraph {
         return this;
     }
 
-    reset(): this {
-        this._error = undefined;
-        return this;
-    }
-
     networkOnly(): this {
         this._urlOpts = { requestPolicy: 'network-only' };
         return this;
@@ -95,7 +90,7 @@ export class dgraph extends Dgraph {
                         console.log(r);
                     }
                     r = this._error ? { error: this._error } : { data: r };
-                    this.reset();
+                    this._error = undefined;
                     return r;
                 });
         }
@@ -110,7 +105,7 @@ export class dgraph extends Dgraph {
                     console.log(r);
                 }
                 r = this._error ? { error: this._error } : { data: r };
-                this.reset();
+                this._error = undefined;
                 return r;
             });
     }
@@ -132,7 +127,7 @@ export class dgraph extends Dgraph {
                 if (this._devMode) {
                     console.log(r);
                 }
-                this.reset();
+                this._error = undefined;
                 return r;
             })
         );

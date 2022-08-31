@@ -14,6 +14,11 @@ export class dgraph extends Dgraph {
     private _error: string;
     private _prefix: string;
 
+    private _url: string;
+    private _fetch: any;
+    private _headers: any;
+    private _mutationURL: any;
+
     /**
      * @param
      *   url - api endpoint url
@@ -27,6 +32,7 @@ export class dgraph extends Dgraph {
         type,
         isDevMode = false,
         url,
+        mutationURL,
         headers,
         fetch,
         prefix = ''
@@ -34,14 +40,19 @@ export class dgraph extends Dgraph {
         type?: string,
         isDevMode?: boolean,
         url: string,
+        mutationURL?: string,
         headers?: () => any,
         fetch?: any,
         prefix?: string
     }) {
         super(type);
         this._devMode = isDevMode;
-        this._client = client({ url, headers, fetch });
         this._prefix = prefix;
+
+        this._url = url;
+        this._mutationURL = mutationURL;
+        this._headers = headers;
+        this._fetch = fetch;
     }
 
     type(type: string, alias?: string, prefix = this._prefix) {
@@ -56,6 +67,11 @@ export class dgraph extends Dgraph {
 
     async build(): Promise<{ error?: any, data?: any }> {
         const op = this._operation;
+        this._client = client({
+            url: op === 'mutation' && this._mutationURL ? this._mutationURL : this._url,
+            headers: this._headers,
+            fetch: this._fetch
+        });
         const gq = super.build();
         if (this._devMode) {
             console.log(gq);
@@ -112,6 +128,7 @@ export class dgraph extends Dgraph {
     }
     buildSubscription() {
         this.operation('subscription');
+        this._client = client({ url: this._url, headers: this._headers, fetch: this._fetch });
         const gq = super.build();
         if (this._devMode) {
             console.log(gq);
